@@ -1,89 +1,117 @@
 body{
     background: #fffff8;
-    font-family: -apple-system, BlinkMacSystemFont, sans-serif;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
 }
 
 #app{
-    display: grid;
-    grid-auto-rows: minmax(150px, auto);
-    /* grid-template-columns:  */
-    height:100vh;
-    background: #f23557;
-    color: #f0d43a;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    border: #11698e 1px solid;
+    background-color: #225685;
+    border-radius: 30px;
+    margin: 10px;
+    align-items: center;
     justify-content: center;
-    grid-gap: 1em;
+    /* grid-gap: 1em; */
     font-size: 20px;
+    box-shadow: 0 10px 20px 0 #11698e;
     font-family: 'Oswald', sans-serif;
 }
 
-.holder{
-
-}
-
-.entry{
-    background: rgba(59, 74, 107, .4);
-}
-
-#entryHolder{
-
-}
-
-#date{
-
-}
-
-#temp{
-
-}
-
-#content{
-
-}
-
-.headline {
-
-}
-.title{
-
-}
-
-/*  Basic Styling To Override Default For Basic HTML Elements */
-label{
-    display:block;
-    font-size: 27px;
-}
-
-input{
-    display:block;
-    height: 60px;
-    width: 320px;
-    background:#22b2da;
-    color: #f0d43a;
-    font-size: 20px;
-    font-family: 'Oswald', sans-serif;
-    border: none;
-}
-
-button{
-    width: 400px;
-    height: 100px;
-    background: #3b4a6b;
-    color: #f0d43a;
+.title {
+    width: 100%;
+    text-align: center;
+    text-shadow: 1px 1px #11698e;
     font-size: 26px;
-    font-family: 'Oswald', sans-serif;
-    border: none;
-    box-shadow: 2px 4px 5px #444;
-}
-h1{
-    font-size: 36px;
+    color: #10ad86;
+    font-weight: bold;
+    margin-top: 1.5em;
+    margin-bottom: 1em;
 }
 
-textarea{
-    background:#22b2da;
-    color: #f0d43a;
-    font-size: 20px;
-    font-family: 'Oswald', sans-serif;
+.input {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 250px;
+    text-align: center;
+    margin: 0px;
 }
+
+#zip, #countryCode, #date  {
+    width: 80%;
+    height: 20px;
+    border-radius: 10px;
+    text-align: center;
+    border: #d3e0df 1px solid;
+    box-shadow: 0 1px 1px 0 #eee;
+    margin: 15px 0px;
+}
+
+#feel {
+    width: 80%;
+    height: 100px;
+    border-radius: 10px;
+    text-align: center;
+    border: #d3e0df 1px solid;
+    box-shadow: 0 1px 1px 0 #eee;
+    margin: 15px;
+}
+
+.myInput {
+    width: 80%;
+    height: 90px;
+    border-radius: 10px;
+    border: #d3e0df 1px solid;
+    box-shadow: 0 1px 1px 0 #eee;
+    margin: 4px 0;
+    text-align: center;
+}
+
+#location {
+    font-size: 20px;
+    color:#0c9775;
+    margin-bottom: 10px;
+}
+
+#temp {
+    font-size: 20px;
+    font-weight: bold;
+    margin-bottom: 5px;
+}
+
+.entry {
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    margin-top: 15px;
+}
+
+#addEntry {
+    width: 60px;
+    height: 60px;
+    font-size: 12px;
+    border-radius: 30px;
+    border: #11698e 3px solid;
+    background-color:#0c9775;
+    color: rgb(7, 7, 7);
+    margin-top: 30px;
+    margin-bottom: 10px;
+    transition: width 1s height 2s;
+    color: #eee
+}
+
+#addEntry:hover {
+    width: 64px;
+    height: 64px;
+    border-radius: 32px;
+    border: #f8f1f1 3px solid;
+    font-size: large;
+}
+
+
 /* Reset style for HTML element on active to have no border*/
 input:focus,
 select:focus,
@@ -91,21 +119,11 @@ textarea:focus,
 button:focus {
     outline: none;
 }
-/* Style for Placeholder Text*/
-::placeholder { /* Firefox, Chrome, Opera */ 
-    color: #f0d43a; 
-    font-family: 'Oswald', sans-serif;
 
-} 
-  
-:-ms-input-placeholder { /* Internet Explorer 10-11 */ 
-    color: #f0d43a; 
-    font-family: 'Oswald', sans-serif;
-
-} 
-  
-::-ms-input-placeholder { /* Microsoft Edge */ 
-    color: #f0d43a; 
-    font-family: 'Oswald', sans-serif;
-
-} 
+@media screen and (min-width: 350px) {
+    #app {
+        width: 300px;
+        margin: auto;
+        margin-top: auto;
+    }
+}
