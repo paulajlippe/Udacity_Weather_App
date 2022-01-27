@@ -4,7 +4,7 @@ if (process.env.NODE_ENV !== "production") {
 const apiKey = process.env.OW_KEY;
 const mapToken = process.env.MAP_TOKEN;
 
-let projectData = {};
+let allData = {};
 
 const express = require('express');
 const app = express();
@@ -22,28 +22,26 @@ function listening(){
     console.log(`Server is running on localhost: ${port}`);
 }
 
-//GET route
+//GET ROUTE
 app.get('/journal', getJournal);
 function getJournal(req, res){
-    let projectData = data;
-    console.log(projectData);
-    res.send(projectData);
+    res.send(allData);
+    console.log(allData);
 }
 
-//POST a journal
-const data = [];
+//POST ROUTE
 app.post('/journal', addJournal);
 function addJournal(req, res){
-    const newEntries = {
+    const newEntry = {
         date: req.body.date,
         location: req.body.location,
         temp: req.body.temp,
         weather: req.body.weather,
-        content: req.body.content
+        journal: req.body.journal
      }
-    data.push(newEntries);
-    let projectData = data;
-    res.send(projectData);
+    allData.push(newEntry);
+    res.send(allData);
+    console.log(allData)
 }
 
 //Get route for API_KEYS

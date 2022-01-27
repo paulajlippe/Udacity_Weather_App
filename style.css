@@ -37,7 +37,17 @@ body{
     justify-content: center;
     width: 250px;
     text-align: center;
+    word-wrap: normal;
     margin: 0px;
+}
+
+.entry {
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    word-wrap: normal;
+    margin-top: 15px;
+    margin-bottom: 5px;
 }
 
 #zip, #countryCode, #date  {
@@ -50,24 +60,16 @@ body{
     margin: 15px 0px;
 }
 
-#feeling {
+#journal {
     width: 80%;
     height: 100px;
     border-radius: 10px;
     text-align: center;
     border: #d3e0df 1px solid;
     box-shadow: 0 1px 1px 0 #eee;
+    word-wrap: normal;
     margin: 15px;
-}
-
-.myInput {
-    width: 80%;
-    height: 90px;
-    border-radius: 10px;
-    border: #d3e0df 1px solid;
-    box-shadow: 0 1px 1px 0 #eee;
-    margin: 4px 0;
-    text-align: center;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
 }
 
 #location {
@@ -80,13 +82,6 @@ body{
     font-size: 20px;
     font-weight: bold;
     margin-bottom: 5px;
-}
-
-.entry {
-    text-align: center;
-    display: flex;
-    flex-direction: column;
-    margin-top: 15px;
 }
 
 #addEntry {
