@@ -1,5 +1,5 @@
 {
-    "name": "Weather-Journal-App",
+    "name": "Weather_Journal_App",
     "version": "1.0.0",
     "main": "server.js",
     "author": "paulajlippe",
@@ -14,6 +14,6 @@
 
     "repository": {
       "type": "git",
-      "url": "git+https://github.com/paulajlippe/Udacity-Weather-App"
+      "url": "git+https://github.com/paulajlippe/Udacity_Weather_App"
     }
 }

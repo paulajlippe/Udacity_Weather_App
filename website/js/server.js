@@ -1,8 +1,9 @@
-if (process.env.NODE_ENV !== "production") {
-    require('dotenv').config();
-}
-const apiKey = process.env.OW_KEY;
-const mapToken = process.env.MAP_TOKEN;
+// if (process.env.NODE_ENV !== "production") {
+//     require('dotenv').config();
+// }
+
+// const apiKey = 'ff1af0ef32f3aced7acaff971e667d56';
+// const mapToken = process.env.MAP_TOKEN;
 
 let allData = {};
 
@@ -49,7 +50,7 @@ app.get('/api', getKey);
 function getKey(req, res){
     let KEYS = {
         "apiKey": apiKey,
-        "mapToken": mapToken
+        // "mapToken": mapToken
     }
     res.send(KEYS);
 }

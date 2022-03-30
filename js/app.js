@@ -11,9 +11,9 @@
 
 //* comments *//
 
-// Personal API Key for OpenWeatherMap API api.openweathermap.org
-let apiKey = '86df90f84b7e6a74aefec2f9840dbd2e';
-let baseUrl = 'api.openweathermap.org/data/2.5/weather?zip={zipCode},{countryCode}&appid={86df90f84b7e6a74aefec2f9840dbd2e}';
+// Personal API Key for OpenWeatherMap API
+let apiKey = 'ff1af0ef32f3aced7acaff971e667d56';
+let baseUrl = 'api.openweathermap.org/data/2.5';
 const newEntry = document.getElementById('journal').value;
 
 // Event listener to add function to existing HTML DOM element
@@ -57,12 +57,12 @@ async function addJournal(e){
 }
 
 /* Function to GET Web API Data*/
-getWeatherData = async (zipCode, countryCode) => {
-    let KEYS = await getApiKey();
+ const getWeatherData = async (zipCode, countryCode) => {
+    let KEYS = await getapiKey();
     const apiKey = KEYS.apiKey;
     // let countryCode = 'US';
-    
-    const url = baseURL+zipCode+',' + (countryCode || 'US') +'&appid='+apiKey+'&units=metric';
+    api.openweathermap.org/data/2.5/weather?zip={zip code},{country code}&appid={API key}
+    const url = baseURL/+zipCode+',' + (countryCode || 'US') +'&appid='+apiKey+'&units=metric';
     console.log(url);
     const res = await fetch(url)
     try {
@@ -94,17 +94,17 @@ const postData = async (url = '', data = {}) => {
 }
 
 /* Function to GET Project Data */
-const getWeatherData = async (url='') =>{ 
-    const request = await fetch(url);
-    try {
-    // Transform into JSON
-    const allData = await request.json()
-    }
-    catch(error) {
-      console.log("error", error);
-      // appropriately handle the error
-    }
-};
+// const getWeatherData = async (url='') =>{ 
+//     const request = await fetch(url);
+//     try {
+//     // Transform into JSON
+//     const allData = await request.json()
+//     }
+//     catch(error) {
+//       console.log("error", error);
+//       // appropriately handle the error
+//     }
+// };
 
 //Update UI
 const updateUI = async () => {
