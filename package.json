@@ -1,23 +1,21 @@
 {
     "name": "Udacity-Weather-App",
     "version": "1.0.0",
-    "main": "js/server.js",
+    "main": "server.js",
     "author": "paulajlippe",
     "license": "MIT",
     "dependencies": {
-      "body-parser": "^1.19.0",
-      "cors": "^2.8.5",
-    
-      "express": "^4.17.1",
-      "node-fetch": "^2.6.1"
+        "body-parser": "^1.19.0",
+        "cors": "^2.8.5",
+        "express": "^4.18.1",
+        "node-fetch": "^2.6.7"
     },
     "scripts": {
-      "test": "echo \"Error: no test specified\" && exit 1",
-      "start": "node js/server.js"
+        "test": "echo \"Error: no test specified\" && exit 1",
+        "start": "node server.js"
     },
-
     "repository": {
-      "type": "git",
-      "url": "git+https://github.com/paulajlippe/Udacity_Weather_App"
+        "type": "git",
+        "url": "git+https://github.com/paulajlippe/Udacity_Weather_App"
     }
 }

@@ -2,8 +2,8 @@
 var fetch = require('node-fetch');
 const dotenv = require('dotenv').config();
 
-// const apiKey = 'ff1af0ef32f3aced7acaff971e667d56';
-// const mapToken = process.env.MAP_TOKEN;
+const apiKey = 'ff1af0ef32f3aced7acaff971e667d56';
+const mapToken = process.env.MAP_TOKEN;
 
 // Setup empty JS object to act as endpoint for all routes
 let projectData = {};
