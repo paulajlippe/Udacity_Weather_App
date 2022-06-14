@@ -17,12 +17,12 @@ let baseUrl = 'http://api.openweathermap.org/data/2.5/weather?zip=';
 const newEntry = document.getElementById('journal').value;
 
 // Event listener to add function to existing HTML DOM element
-document.getElementById('addEntry').addEventListener('click', addJournal); 
+document.getElementById('addEntry').addEventListener('click', addEntry); 
 
 /* Function called by event listener */
-function addJournal(event) {
+function addEntry(event) {
     event.preventDefault();
-    console.log(`Mandatory elements: ${zipCode.value}, ${journal.value}`);
+    console.log(`Mandatory elements: ${date.value}, ${zipCode.value}, ${journal.value}`);
   
     // Checks whether the user has entered the required inputs
     if (date.value && zipCode.value && journal.value) {
