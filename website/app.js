@@ -1,6 +1,6 @@
 /* Global Variables */
-const zipCode = document.getElementById('zipCode');
 const date = document.getElementById('date');
+const zipCode = document.getElementById('zipCode');
 const weather = document.getElementById('weather');
 const journal = document.getElementById('journal');
 const entryHolder = document.getElementById('entryHolder');
@@ -22,23 +22,27 @@ document.getElementById('addEntry').addEventListener('click', addJournal);
 /* Function called by event listener */
 function addJournal(event) {
     event.preventDefault();
-  
     console.log(`Mandatory elements: ${zipCode.value}, ${journal.value}`);
   
     // Checks whether the user has entered the required inputs
-    if (zipCode.value && journal.value) {
+    if (date.value && zipCode.value && journal.value) {
       addEntry.innerText = '';
   
       getWeatherByZipCode(baseUrl, zipCode.value)
       .then(data => postWeatherData('/save', data))
-      .then(() => updateUi())
+      .then(() => updateUI())
       .catch(() => {
-        cleanUi();
-        addEntry.innerText = 'The inserted zipcode is invalid'
+        cleanUI(
+          date.innerHTML = "",
+          zipCode.innerHTML = "",
+          weather.innerHTML = "",
+          journal.innerHTML = "",
+        );
+        addEntry.innerText = 'The zipcode is invalid'
       });
     } else {
-      cleanUi();
-      addEntry.innerText = 'You need to enter the zipcode and feelings';
+      cleanUI()
+      addEntry.innerText = 'You need to enter the zipcode and journal';
     }
   }
   
@@ -48,7 +52,7 @@ function addJournal(event) {
       url: `${baseUrl}${zipCode}`,
     };
   
-    const dataWeather = await fetch('/getWeather', {
+    const getWeather = await fetch('/getWeather', {
       method: 'POST',
       credentials: 'same-origin',
       headers: {
@@ -58,9 +62,9 @@ function addJournal(event) {
     });
   
     try {
-      const data = await dataWeather.json();
+      const data = await getWeather.json();
   
-      if (data.cod === "404") {
+      if (data.code === "404") {
         throw new Error('error 404');
       }
       return data;
@@ -71,12 +75,12 @@ function addJournal(event) {
   }
   
   /* Function to POST data */
-  const postWeatherData = async (url, { main, name, dt }) => {
+  const postWeatherData = async (url, { date, zipCode, weather, journal }) => {
     const postData = {
-      temp: main.temp,
-      name: name,
-      dateTime: dt,
-      content: feelings.value,
+      date: date.value,
+      zipCode: zipCode.value,
+      weather: weather.value,
+      content: journal.value,
     };
   
     return await fetch(url, {
@@ -90,12 +94,12 @@ function addJournal(event) {
   }
   
   // Function to clear all UI
-  const cleanUI = () => {
-    weatherIconElement.className = "";
-    zipCodeElement.innerHTML = "",
-    tempElement.innerHTML = "";
-    dateElement.innerHTML = "";
-    journalElement.innerHTML = "";
+  const cleanUI = async () => {
+    // weatherIconElement.className = "";
+    date.innerHTML = "";
+    zipCode.innerHTML = "",
+    weather.innerHTML = "";
+    journal.innerHTML = "";
   }
   
   /* Function to GET Project Data */
@@ -103,11 +107,11 @@ function addJournal(event) {
     const data = await fetch('/all');
     const dataRetrieve = await data.json();
   
-    weatherIconElement.className = "";
-    weatherIconElement.className = getClassNameIcon(dataRetrieve.dateTime);
+    // weatherIconElement.className = "";
+    // weatherIconElement.className = getClassNameIcon(dataRetrieve.dateTime);
   
-    tempElement.innerHTML = `${dataRetrieve.temp} °F`;
+    dateElement.innerHTML = getFormattedDate(dataRetrieve.date);
     zipCodeElement.innerHTML = dataRetrieve.zipCode;
-    dateElement.innerHTML = getFormattedDate(dataRetrieve.dateTime);
-    contentElement.innerHTML = dataRetrieve.content;
+    weatherElement.innerHTML = `${dataRetrieve.weather} °F`;
+    journalElement.innerHTML = dataRetrieve.journal;
   }
