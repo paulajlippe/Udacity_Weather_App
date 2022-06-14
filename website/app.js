@@ -1,9 +1,9 @@
 /* Global Variables */
-// const date = document.getElementById('date');
-// const location = document.getElementById('location');
-// const temp = document.getElementById('temp');
-// const journal = document.getElementById('journal');
-// const entryHolder = document.getElementById('entryHolder');
+const zip = document.getElementById('zip');
+const date = document.getElementById('date');
+const weather = document.getElementById('weather');
+const journal = document.getElementById('journal');
+const entryHolder = document.getElementById('entryHolder');
 
 // Create a new date instance dynamically with JS
 let d = new Date();
@@ -23,10 +23,10 @@ document.getElementById('addEntry').addEventListener('click', addJournal);
 function addJournal(event) {
     event.preventDefault();
   
-    console.log(`Mandatory elements: ${zipCode.value}, ${journal.value}`);
+    console.log(`Mandatory elements: ${zip.value}, ${journal.value}`);
   
     // Checks whether the user has entered the required inputs
-    if (zipCode.value && journal.value) {
+    if (zip.value && journal.value) {
       screenMessage.innerText = '';
   
       getWeatherByZipCode(baseUrl, zipCode.value)
