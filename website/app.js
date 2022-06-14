@@ -26,7 +26,7 @@ function addJournal(event) {
     console.log(`Mandatory elements: ${zipCode.value}, ${journal.value}`);
   
     // Checks whether the user has entered the required inputs
-    if (zip.value && journal.value) {
+    if (zipCode.value && journal.value) {
       addEntry.innerText = '';
   
       getWeatherByZipCode(baseUrl, zipCode.value)
