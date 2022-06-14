@@ -45,15 +45,15 @@ app.listen(port, () => {
   
   // Callback function to complete GET '/all'
   app.get('/all', (req, res) => {
-    console.log(`Returning projectData ${projectData}`);
-    res.send(projectData);
+    console.log(`Returning postData ${postData}`);
+    res.send(postData);
   })
   
   // Post Route
   app.post('/save', (req, res) => {
     if (req.body) {
-      projectData = req.body;
+      postData = req.body;
     }
-    console.log(`Saving a new projectData => ${projectData}`)
+    console.log(`Saving a new postData => ${postData}`)
     res.send({status: 'ok'});
   })

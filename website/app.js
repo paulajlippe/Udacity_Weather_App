@@ -9,8 +9,6 @@ const entryHolder = document.getElementById('entryHolder');
 let d = new Date();
 let newDate = d.getMonth()+'.'+ d.getDate()+'.'+ d.getFullYear();
 
-//* comments *//
-
 // Personal API Key for OpenWeatherMap API
 let apiKey = 'ff1af0ef32f3aced7acaff971e667d56';
 let baseUrl = 'http://api.openweathermap.org/data/2.5/weather?zip=';
@@ -26,7 +24,7 @@ function addEntry(event) {
   
     // Checks whether the user has entered the required inputs
     if (date.value && zipCode.value && journal.value) {
-      addEntry.innerText = '';
+      addEntry.innerText = "";
   
       getWeatherByZipCode(baseUrl, zipCode.value)
       .then(data => postWeatherData('/save', data))
@@ -38,7 +36,7 @@ function addEntry(event) {
           weather.innerHTML = "",
           journal.innerHTML = "",
         );
-        addEntry.innerText = 'The zipcode is invalid'
+        addEntry.innerText = ""
       });
     } else {
       cleanUI()
@@ -62,7 +60,7 @@ function addEntry(event) {
     });
   
     try {
-      const data = await getWeather.json();
+      const data = await response.json();
   
       if (data.code === "404") {
         throw new Error('error 404');

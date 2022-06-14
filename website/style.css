@@ -41,11 +41,15 @@ body{
     margin: 0px;
 }
 
-.entryHolder {
-    text-align: center;
+#entryHolder {
     display: flex;
     flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 250px;
+    text-align: center;
     word-wrap: normal;
+    /* margin: 0px; */
     margin-top: 15px;
     margin-bottom: 5px;
 }
@@ -99,7 +103,6 @@ body{
     border: #f8f1f1 3px solid;
     font-size: large;
 }
-
 
 /* Reset style for HTML element on active to have no border*/
 input:focus,
