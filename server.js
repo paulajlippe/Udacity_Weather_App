@@ -6,7 +6,7 @@ const apiKey = 'ff1af0ef32f3aced7acaff971e667d56';
 const mapToken = process.env.MAP_TOKEN;
 
 // Setup empty JS object to act as endpoint for all routes
-let postData = {};
+const postData = {};
 
 // Express to run server and routes
 const express = require('express');
@@ -35,20 +35,20 @@ app.listen(port, () => {
   })
 
   // Callback function to complete GET '/all'
-app.get('/all', (req, res) => {
-  console.log(`Returning postData ${postData}`);
-  res.send(postData);
-})
+// app.get('/all', (req, res) => {
+//   console.log(`Returning postData ${postData}`);
+//   res.send(postData);
+// })
   
 app.post('/getWeather', async(req, res) => {
   const {url} = req.body;
   const response =  await fetch(`${url}${process.env.API_KEY}&units=metric`);
   const data = await response.json();
-
   res.send(data);
 })
 
 // Post Route
+const data = []
 app.post('/save', (req, res) => {
   if (req.body) {
     postData = req.body;
@@ -56,3 +56,8 @@ app.post('/save', (req, res) => {
   console.log(`Saving a new postData => ${postData}`)
   res.send({status: 'ok'});
 })
+
+function postData (req, res){
+    data.push (req.body)
+  console.log(data)
+}

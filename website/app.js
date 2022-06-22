@@ -3,7 +3,7 @@ const date = document.getElementById('date');
 const zipCode = document.getElementById('zipCode');
 const weather = document.getElementById('weather');
 const journal = document.getElementById('journal');
-const entryHolder = document.getElementById('entryHolder');
+const postData = document.getElementById('postData');
 
 // Create a new date instance dynamically with JS
 let d = new Date();
@@ -26,8 +26,8 @@ function addEntry(event) {
     if (date.value && zipCode.value && journal.value) {
       addEntry.innerText = "";
   
-      getWeatherByZipCode(baseUrl, zipCode.value)
-      .then(data => postWeatherData('/save', data))
+      getWeatherByZipCode (baseUrl, zipCode.value)
+      .then(data => postData('/save', data))
       .then(() => updateUI())
       .catch(() => {
         // cleanUI (
@@ -40,56 +40,50 @@ function addEntry(event) {
       });
     } 
     else {
-      // cleanUI()
+  //     // cleanUI()
       addEntry.innerText = 'You need to enter the zipcode and journal';
     }
   }
   
   /* Function to GET Web API Data*/
-  const getWeatherByZipCode = async (baseUrl, zipCode) => {
-    const urldata = {
-      url: `${baseUrl}${zipCode}`,
-    };
-  
-    const getWeather = await fetch('/getWeather', {
-      method: 'POST',
-      credentials: 'same-origin',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify(urldata)
-    });
-  
-    // try {
-    //   const data = await response.json();
-    //   if (data.code === "404") {
-    //     throw new Error('error 404');
-    //   }
-    //   return data;
-    // } catch (error) {
-    //   console.log('Error =>', error);
-    //   return error;
-    // }
+    const data = async (baseUrl = '', data = {}) => {
+      const getWeather = await fetch(baseUrl, {
+        method: 'POST',
+        credentials: 'same-origin',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(urldata)
+      });
+
+    try {
+      const newData = await getWeather.json();
+      console.log(newData);
+      return newData;
+    } catch (error) {
+      console.log('Error =>', error);
+      // return error;
+    }
   }
-  
+
   /* Function to POST data */
-  const postWeatherData = async (url, { date, zipCode, weather, journal }) => {
-    const postData = {
-      date: date.value,
-      zipCode: zipCode.value,
-      weather: weather.value,
-      content: journal.value,
-    };
+  // const postWeatherData = async (url, { date, zipCode, weather, journal }) => {
+  //   const postData = {
+  //     date: date.value,
+  //     zipCode: zipCode.value,
+  //     weather: weather.value,
+  //     content: journal.value,
+  //   };
   
-    return await fetch(url, {
-      method: 'POST',
-      credentials: 'same-origin',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify(postData)
-    });
-  }
+  //   return await fetch(url, {
+  //     method: 'POST',
+  //     credentials: 'same-origin',
+  //     headers: {
+  //       'Content-Type': 'application/json'
+  //     },
+  //     body: JSON.stringify(postData)
+  //   });
+  // }
   
   // Function to clear all UI
   // const cleanUI = async () => {
@@ -101,15 +95,15 @@ function addEntry(event) {
   // }
   
   /* Function to GET Project Data */
-  const updateUI = async () => {
-    const data = await fetch('/all');
-    const dataRetrieve = await data.json();
+  // const updateUI = async () => {
+  //   const data = await fetch('/all');
+  //   const dataRetrieve = await data.json();
   
-    // weatherIconElement.className = "";
-    // weatherIconElement.className = getClassNameIcon(dataRetrieve.dateTime);
+  //   // weatherIconElement.className = "";
+  //   // weatherIconElement.className = getClassNameIcon(dataRetrieve.dateTime);
   
-    dateElement.innerHTML = getFormattedDate(dataRetrieve.date);
-    zipCodeElement.innerHTML = dataRetrieve.zipCode;
-    weatherElement.innerHTML = `${dataRetrieve.weather} °F`;
-    journalElement.innerHTML = dataRetrieve.journal;
-  }
+  //   dateElement.innerHTML = getFormattedDate(dataRetrieve.date);
+  //   zipCodeElement.innerHTML = dataRetrieve.zipCode;
+  //   weatherElement.innerHTML = `${dataRetrieve.weather} °F`;
+  //   journalElement.innerHTML = dataRetrieve.journal;
+  // }
