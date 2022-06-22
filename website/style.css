@@ -13,7 +13,6 @@ body{
     margin: 10px;
     align-items: center;
     justify-content: center;
-    /* grid-gap: 1em; */
     font-size: 20px;
     box-shadow: 0 10px 20px 0 #11698e;
     font-family: 'Oswald', sans-serif;
@@ -26,8 +25,8 @@ body{
     font-size: 26px;
     color: #10ad86;
     font-weight: bold;
-    margin-top: 1.5em;
-    margin-bottom: 1em;
+    margin-top: 1em;
+    margin-bottom: .5em;
 }
 
 .input {
@@ -35,10 +34,24 @@ body{
     flex-direction: column;
     align-items: center;
     justify-content: center;
+    border-radius: 15px;
     width: 250px;
+    height: 100%;
     text-align: center;
     word-wrap: normal;
-    margin: 0px;
+    margin: 5px;
+}
+
+.entryHolder {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 250px;
+    height: 100%;
+    text-align: center;
+    word-wrap: normal;
+    margin: 5px;
 }
 
 #entryHolder {
@@ -47,39 +60,51 @@ body{
     align-items: center;
     justify-content: center;
     width: 250px;
+    height: 100%;
     text-align: center;
     word-wrap: normal;
-    /* margin: 0px; */
-    margin-top: 15px;
-    margin-bottom: 5px;
+    margin-top: 10px;
+    margin-bottom: 15px;
 }
 
 #zipCode, #date  {
     width: 80%;
     height: 20px;
-    border-radius: 10px;
     text-align: center;
     border: #d3e0df 1px solid;
-    box-shadow: 0 1px 1px 0 #eee;
-    margin: 15px 0px;
+    /* box-shadow: 0 1px 1px 0 #eee; */
+    margin: 10px 0px;
+    border-radius: 15px;
 }
 
 #journal {
     width: 80%;
     height: 100px;
-    border-radius: 10px;
     text-align: center;
+    word-wrap: normal;
     border: #d3e0df 1px solid;
     box-shadow: 0 1px 1px 0 #eee;
-    word-wrap: normal;
-    margin: 15px;
+    margin: 10px 0px;
+    border-radius: 15px;
     font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
 }
 
 #weather {
     font-size: 20px;
     font-weight: bold;
-    margin-bottom: 5px;
+}
+
+#postData {
+    width: 80%;
+    height: 100%;
+    border-radius: 10px;
+    text-align: center;
+    background-color: white;
+    border: #d3e0df 1px solid;
+    box-shadow: 0 1px 1px 0 #eee;
+    word-wrap: normal;
+    margin: 10px;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
 }
 
 #addEntry {
@@ -90,10 +115,9 @@ body{
     border: #11698e 3px solid;
     background-color:#0c9775;
     color: rgb(7, 7, 7);
-    margin-top: 30px;
-    margin-bottom: 10px;
+    margin-top: 15px;
+    margin-bottom: 15px;
     transition: width 1s height 2s;
-    color: #eee
 }
 
 #addEntry:hover {

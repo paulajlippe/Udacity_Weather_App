@@ -60,16 +60,16 @@ function addEntry(event) {
       body: JSON.stringify(urldata)
     });
   
-    try {
-      const data = await response.json();
-      if (data.code === "404") {
-        throw new Error('error 404');
-      }
-      return data;
-    } catch (error) {
-      console.log('Error =>', error);
-      return error;
-    }
+    // try {
+    //   const data = await response.json();
+    //   if (data.code === "404") {
+    //     throw new Error('error 404');
+    //   }
+    //   return data;
+    // } catch (error) {
+    //   console.log('Error =>', error);
+    //   return error;
+    // }
   }
   
   /* Function to POST data */
