@@ -30,16 +30,17 @@ function addEntry(event) {
       .then(data => postWeatherData('/save', data))
       .then(() => updateUI())
       .catch(() => {
-        cleanUI(
+        // cleanUI (
           date.innerHTML = "",
           zipCode.innerHTML = "",
           weather.innerHTML = "",
           journal.innerHTML = "",
-        );
+        // );
         addEntry.innerText = ""
       });
-    } else {
-      cleanUI()
+    } 
+    else {
+      // cleanUI()
       addEntry.innerText = 'You need to enter the zipcode and journal';
     }
   }
@@ -61,7 +62,6 @@ function addEntry(event) {
   
     try {
       const data = await response.json();
-  
       if (data.code === "404") {
         throw new Error('error 404');
       }
@@ -92,13 +92,13 @@ function addEntry(event) {
   }
   
   // Function to clear all UI
-  const cleanUI = async () => {
-    // weatherIconElement.className = "";
-    date.innerHTML = "";
-    zipCode.innerHTML = "",
-    weather.innerHTML = "";
-    journal.innerHTML = "";
-  }
+  // const cleanUI = async () => {
+  //   // weatherIconElement.className = "";
+  //   date.innerHTML = "";
+  //   zipCode.innerHTML = "",
+  //   weather.innerHTML = "";
+  //   journal.innerHTML = "";
+  // }
   
   /* Function to GET Project Data */
   const updateUI = async () => {
