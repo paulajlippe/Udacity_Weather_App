@@ -25,22 +25,35 @@ function addEntry(event) {
     // Checks whether the user has entered the required inputs
     if (date.value && zipCode.value && journal.value) {
       addEntry.innerText = "";
-  
-      getWeatherByZipCode (baseUrl, zipCode.value)
-      .then(data => postData('/save', data))
-      .then(() => updateUI())
-      .catch(() => {
-        // cleanUI (
-          date.innerHTML = "",
-          zipCode.innerHTML = "",
-          weather.innerHTML = "",
-          journal.innerHTML = "",
-        // );
-        addEntry.innerText = ""
-      });
+
+    function getWeather (baseUrl, zipCode) {
+    then(data => postData('/save', data))
+    then(() => updateUI())
+    .catch(() => {
+      // cleanUI (
+        date.innerHTML = "",
+        zipCode.innerHTML = "",
+        weather.innerHTML = "",
+        journal.innerHTML = "",
+      // );
+      addEntry.innerText = ""
+    });
+    }
+    // getWeather (baseUrl, zipCode.value)
+    //   .then(data => postData('/save', data))
+    //   .then(() => updateUI())
+    //   .catch(() => {
+    //     // cleanUI (
+    //       date.innerHTML = "",
+    //       zipCode.innerHTML = "",
+    //       weather.innerHTML = "",
+    //       journal.innerHTML = "",
+    //     // );
+    //     addEntry.innerText = ""
+    //   });
     } 
     else {
-  //     // cleanUI()
+      // cleanUI()
       addEntry.innerText = 'You need to enter the zipcode and journal';
     }
   }
@@ -67,24 +80,26 @@ function addEntry(event) {
   }
 
   /* Function to POST data */
-  // const postWeatherData = async (url, { date, zipCode, weather, journal }) => {
-  //   const postData = {
-  //     date: date.value,
-  //     zipCode: zipCode.value,
-  //     weather: weather.value,
-  //     content: journal.value,
-  //   };
+  const postWeatherData = async (url ='', data = {}) =>{
+    console.log(data)
+    const postData = {
+      date: date.value,
+      zipCode: zipCode.value,
+      // weather: weather.value,
+      content: journal.value,
+    };
   
-  //   return await fetch(url, {
-  //     method: 'POST',
-  //     credentials: 'same-origin',
-  //     headers: {
-  //       'Content-Type': 'application/json'
-  //     },
-  //     body: JSON.stringify(postData)
-  //   });
-  // }
-  
+    return await fetch(url, {
+      method: 'POST',
+      credentials: 'same-origin',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(postData)
+    });
+  }
+
+
   // Function to clear all UI
   // const cleanUI = async () => {
   //   // weatherIconElement.className = "";

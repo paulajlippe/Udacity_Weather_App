@@ -35,10 +35,10 @@ app.listen(port, () => {
   })
 
   // Callback function to complete GET '/all'
-// app.get('/all', (req, res) => {
-//   console.log(`Returning postData ${postData}`);
-//   res.send(postData);
-// })
+app.get('/all', (req, res) => {
+  console.log(`Returning postData ${postData}`);
+  res.send(postData);
+})
   
 app.post('/getWeather', async(req, res) => {
   const {url} = req.body;
