@@ -19,8 +19,8 @@
   <div id = "app">
     <div class ="title">Weather Journal App</div>
     <div class ="input">
-      <label for="date">Date</label>
-      <input type="text" id="date" placeholder="enter date here">
+      <label for="countryCode">Enter Country Code</label>
+      <input type="text" id="countryCode" placeholder="enter Country">
     </div>
     <div class = "input">
       <label for = "zipCode">Zip Code</label>
@@ -30,18 +30,19 @@
       <label for = "journal">What happened today?</label>
       <textarea id="journal" placeholder="How's your day going?"></textarea>
     </div>
-    
     <button id = "addEntry" type ="submit" onlick="getWeather">Add Entry
     </button>
   
-
     <div class = "entryHolder">
-      <div class = "title">Past Entries</div>
-      <div id = "postData">
-        <!-- <div id = "date"></div> 
+      <div class = "title">Recent Entries</div>
+      <div id = "entryHolder">
+        <div id = "date"></div> 
         <div id = "zipCode"></div>
         <div id = "weather"></div>
-        <div id = "journal"></div> -->
+        <div id="temp"></div>
+        <div id = "journal"></div>
+        <div id="content"></div>
+        <div id="map"></div>
       </div>
     </div>
   </div>

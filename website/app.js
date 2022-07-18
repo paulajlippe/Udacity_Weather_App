@@ -3,122 +3,146 @@ const date = document.getElementById('date');
 const zipCode = document.getElementById('zipCode');
 const weather = document.getElementById('weather');
 const journal = document.getElementById('journal');
-const postData = document.getElementById('postData');
+const content = document.getElementById('content');
+const entryHolder = document.getElementById('entryHolder');
 
-// Create a new date instance dynamically with JS
-let d = new Date();
-let newDate = d.getMonth()+'.'+ d.getDate()+'.'+ d.getFullYear();
+// // Create a new date instance dynamically with JS
+// let d = new Date();
+// let newDate = d.getMonth()+'.'+ d.getDate()+'.'+ d.getFullYear();
 
-// Personal API Key for OpenWeatherMap API
-let apiKey = 'ff1af0ef32f3aced7acaff971e667d56';
-let baseUrl = 'http://api.openweathermap.org/data/2.5/weather?zip=';
-const newEntry = document.getElementById('journal').value;
+// // Personal API Key for OpenWeatherMap API
+// let apiKey = 'ff1af0ef32f3aced7acaff971e667d56';
+// let baseUrl = 'http://api.openweathermap.org/data/2.5/weather?zip=';
+// const newEntry = document.getElementById('journal').value;
 
-// Event listener to add function to existing HTML DOM element
-document.getElementById('addEntry').addEventListener('click', addEntry); 
-
-/* Function called by event listener */
-function addEntry(event) {
-    event.preventDefault();
-    console.log(`Mandatory elements: ${date.value}, ${zipCode.value}, ${journal.value}`);
-  
-    // Checks whether the user has entered the required inputs
-    if (date.value && zipCode.value && journal.value) {
-      addEntry.innerText = "";
-
-    function getWeather (baseUrl, zipCode) {
-    then(data => postData('/save', data))
-    then(() => updateUI())
-    .catch(() => {
-      // cleanUI (
-        date.innerHTML = "",
-        zipCode.innerHTML = "",
-        weather.innerHTML = "",
-        journal.innerHTML = "",
-      // );
-      addEntry.innerText = ""
-    });
+//Retrive Weather Data from Openweather API
+const baseURL = 'http://api.openweathermap.org/data/2.5/weather?zip=';
+const getWeatherData = async (ZipCode, countryCode) => {
+    let KEYS = await getApiKey();
+    const apiKey = KEYS.apiKey;
+    let country = 'US';
+    const url = baseURL+ZipCode+',' + (countryCode || 'US') +'&appid='+apiKey+'&units=metric';
+    console.log(url);
+    const res = await fetch(url)
+    try {
+        const data = await res.json();
+        console.log(JSON.stringify(data));
+        return data;
     }
-    // getWeather (baseUrl, zipCode.value)
-    //   .then(data => postData('/save', data))
-    //   .then(() => updateUI())
-    //   .catch(() => {
-    //     // cleanUI (
-    //       date.innerHTML = "",
-    //       zipCode.innerHTML = "",
-    //       weather.innerHTML = "",
-    //       journal.innerHTML = "",
-    //     // );
-    //     addEntry.innerText = ""
-    //   });
-    } 
-    else {
-      // cleanUI()
-      addEntry.innerText = 'You need to enter the zipcode and journal';
+    catch(error) {
+        console.log("error", error);
     }
-  }
-  
-  /* Function to GET Web API Data*/
-    const data = async (baseUrl = '', data = {}) => {
-      const getWeather = await fetch(baseUrl, {
+}
+
+//Async POST
+const postData = async (url = '', data = {}) => {
+    const response = await fetch(url, {
         method: 'POST',
         credentials: 'same-origin',
         headers: {
-          'Content-Type': 'application/json'
+            'Accept': 'application/json',
+            'Content-type': 'application/json'
         },
-        body: JSON.stringify(urldata)
-      });
-
-    try {
-      const newData = await getWeather.json();
-      console.log(newData);
-      return newData;
-    } catch (error) {
-      console.log('Error =>', error);
-      // return error;
-    }
-  }
-
-  /* Function to POST data */
-  const postWeatherData = async (url ='', data = {}) =>{
-    console.log(data)
-    const postData = {
-      date: date.value,
-      zipCode: zipCode.value,
-      // weather: weather.value,
-      content: journal.value,
-    };
-  
-    return await fetch(url, {
-      method: 'POST',
-      credentials: 'same-origin',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify(postData)
+        body: JSON.stringify(data),
     });
-  }
+    try {
+        const newData = await response.json();
+        return newData;
+    } catch(error) {
+        console.log('error', error);
+    }
+}
 
+//Post data 
+document.getElementById('addEntry').addEventListener('click', addJournal);
+async function addJournal(e){
+    if(zipCode.value != "" && journal.value != ""){
+        let currentDate = new Date().toDateString() + " " + new Date().toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'});
+        console.log(document.getElementById('countryCode').value);
+        let data = await getWeatherData(document.getElementById('zipCode').value, document.getElementById('countryCode').value);
+        let tempValue = Math.round(data.main.temp);
+        let locationValue = data.name + ", " + data.sys.country;
+        let weatherValue = data.weather[0].main + ", feels like " + Math.round(data.main.feels_like);
+        let contentValue = document.getElementById('journal').value;
+        postData('/journal', {
+            date: currentDate,
+            location: locationValue,
+            temp: tempValue,
+            weather: weatherValue,
+            content: contentValue
+        })
+        .then(
+            updateUI()
+        )
+    }else{
+        if(zipCode.value == ""){
+            document.getElementById('entryHolder').innerHTML = "Please enter the correct zipcode!";
+        }
+        if(journal.value == ""){
+            document.getElementById('entryHolder').innerHTML = "Please enter your journal entry!";
+        }
+        if(zipCode.value == "" && journal.value == ""){
+            document.getElementById('entryHolder').innerHTML = "Please enter zipcode and your journal entry.";
+        }
+        document.getElementById('entryHolder');
+        setTimeout(function() {
+            location.reload(1);
+        }, 5000);
+    }
+}
 
-  // Function to clear all UI
-  // const cleanUI = async () => {
-  //   // weatherIconElement.className = "";
-  //   date.innerHTML = "";
-  //   zipCode.innerHTML = "",
-  //   weather.innerHTML = "";
-  //   journal.innerHTML = "";
-  // }
-  
-  /* Function to GET Project Data */
-  // const updateUI = async () => {
-  //   const data = await fetch('/all');
-  //   const dataRetrieve = await data.json();
-  
-  //   // weatherIconElement.className = "";
-  //   // weatherIconElement.className = getClassNameIcon(dataRetrieve.dateTime);
-  
-  //   dateElement.innerHTML = getFormattedDate(dataRetrieve.date);
-  //   zipCodeElement.innerHTML = dataRetrieve.zipCode;
-  //   weatherElement.innerHTML = `${dataRetrieve.weather} °F`;
-  //   journalElement.innerHTML = dataRetrieve.journal;
-  // }
+//Update UI
+const updateUI = async () => {
+    const request = await fetch('/journal');
+    try{
+        const allData = await request.json();
+        const location = document.getElementById('location');
+        const weather = document.getElementById('weather');
+        date.innerHTML = allData[allData.length - 1].date;
+        location.innerHTML = allData[allData.length - 1].location;
+        temp.innerHTML = "<i class='fas fa-snowflake'></i>" + allData[allData.length - 1].temp + '&deg;C' + "<i class='fas fa-temperature-low'></i>";
+        weather.innerHTML = "<i class='fas fa-cloud'></i>" + allData[allData.length - 1].weather + '&deg;C';
+        content.innerHTML = "I feel " + allData[allData.length - 1].content;
+        entryHolder.classList.add("showCard");
+
+        //Load map
+        displayMap();
+    }catch(error){
+        console.log('error', error);
+    }
+}
+
+//Display Map
+async function displayMap(){
+    let data = await getWeatherData(document.getElementById('zipCode').value);
+    let lat = data.coord.lat;
+    let lon = data.coord.lon;
+    let KEYS = await getApiKey();
+    const mapToken = KEYS.mapToken;
+
+    mapboxgl.accessToken = mapToken;
+    var map = new mapboxgl.Map({
+    container: 'map', // container ID
+    style: 'mapbox://styles/mapbox/streets-v11', // style URL
+    center: [lon, lat], // starting position [lng, lat]
+    zoom: 9 // starting zoom
+    });
+
+    // Set options
+    var marker = new mapboxgl.Marker({
+        color: "#16c79a",
+        draggable: true
+    }).setLngLat([lon, lat])
+    .addTo(map);
+}
+
+//Get API Keys
+async function getApiKey (){
+    const request = await fetch('/api');
+    try{
+        const KEYS = await request.json();
+        return KEYS;
+    }catch(error){
+        console.log('error', error);
+    }
+}
