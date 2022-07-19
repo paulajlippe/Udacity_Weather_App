@@ -53,7 +53,7 @@ async function addJournal(e){
         let currentDate = new Date().toDateString() + " " + new Date().toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'});
         console.log(document.getElementById('countryCode').value);
         let data = await getWeatherData(document.getElementById('zipCode').value, document.getElementById('countryCode').value);
-        let tempValue = Math.round(data.main.temp);  
+        let tempValue = Math.round(data.main.temp);
         let locationValue = data.name + ", " + data.sys.country;
         let weatherValue = data.weather[0].main + ", feels like " + Math.round(data.main.feels_like);
         let contentValue = document.getElementById('journal').value;
@@ -93,9 +93,9 @@ const updateUI = async () => {
         const weather = document.getElementById('weather');
         date.innerHTML = allData[allData.length - 1].date;
         location.innerHTML = allData[allData.length - 1].location;
-        temp.innerHTML = "<i class='fas fa-snowflake'></i>" + allData[allData.length - 1].temp + '&deg;F' + "<i class='fas fa-temperature-low'></i>";
-        weather.innerHTML = "<i class='fas fa-cloud'></i>" + allData[allData.length - 1].weather + '&deg;F';
-        content.innerHTML = "Dear Journal," + allData[allData.length - 1].content;
+        temp.innerHTML = "Current temp " + allData[allData.length - 1].temp + '&deg;C';
+        weather.innerHTML = allData[allData.length - 1].weather + '&deg;C';
+        content.innerHTML = "Dear Journal, " + allData[allData.length - 1].content;
         entryHolder.classList.add("showCard");
 
         //Load map
