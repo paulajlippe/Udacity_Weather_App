@@ -1,27 +1,20 @@
 /* Global Variables */
 const date = document.getElementById('date');
-const zipCode = document.getElementById('zipCode');
-const weather = document.getElementById('weather');
-const journal = document.getElementById('journal');
+const temp = document.getElementById('temp');
 const content = document.getElementById('content');
+const countryCode = document.getElementById('countryCode');
+const zipCode = document.getElementById('zipCode');
+const journal = document.getElementById('journal');
 const entryHolder = document.getElementById('entryHolder');
-
-// // Create a new date instance dynamically with JS
-// let d = new Date();
-// let newDate = d.getMonth()+'.'+ d.getDate()+'.'+ d.getFullYear();
-
-// // Personal API Key for OpenWeatherMap API
-// let apiKey = 'ff1af0ef32f3aced7acaff971e667d56';
-// let baseUrl = 'http://api.openweathermap.org/data/2.5/weather?zip=';
-// const newEntry = document.getElementById('journal').value;
+const addEntry = document.getElementById('addEntry')
 
 //Retrive Weather Data from Openweather API
 const baseURL = 'http://api.openweathermap.org/data/2.5/weather?zip=';
-const getWeatherData = async (ZipCode, countryCode) => {
+const getWeatherData = async (zipCode, countryCode) => {
     let KEYS = await getApiKey();
     const apiKey = KEYS.apiKey;
     let country = 'US';
-    const url = baseURL+ZipCode+',' + (countryCode || 'US') +'&appid='+apiKey+'&units=metric';
+    const url = baseURL+zipCode+',' + (countryCode || 'US') +'&appid='+apiKey+'&units=metric';
     console.log(url);
     const res = await fetch(url)
     try {
@@ -60,7 +53,7 @@ async function addJournal(e){
         let currentDate = new Date().toDateString() + " " + new Date().toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'});
         console.log(document.getElementById('countryCode').value);
         let data = await getWeatherData(document.getElementById('zipCode').value, document.getElementById('countryCode').value);
-        let tempValue = Math.round(data.main.temp);
+        let tempValue = Math.round(data.main.temp);  
         let locationValue = data.name + ", " + data.sys.country;
         let weatherValue = data.weather[0].main + ", feels like " + Math.round(data.main.feels_like);
         let contentValue = document.getElementById('journal').value;
@@ -79,12 +72,12 @@ async function addJournal(e){
             document.getElementById('entryHolder').innerHTML = "Please enter the correct zipcode!";
         }
         if(journal.value == ""){
-            document.getElementById('entryHolder').innerHTML = "Please enter your journal entry!";
+            document.getElementById('entryHolder').innerHTML = "Please enter your journal!";
         }
-        if(zipCode.value == "" && journal.value == ""){
-            document.getElementById('entryHolder').innerHTML = "Please enter zipcode and your journal entry.";
+        if(zipCode.value == "" && feelings.value == ""){
+            document.getElementById('entryHolder').innerHTML = "Please enter zipcode and your journal!";
         }
-        document.getElementById('entryHolder');
+        document.getElementById('entryHolder').style.color = "#ff9900";
         setTimeout(function() {
             location.reload(1);
         }, 5000);
@@ -100,14 +93,14 @@ const updateUI = async () => {
         const weather = document.getElementById('weather');
         date.innerHTML = allData[allData.length - 1].date;
         location.innerHTML = allData[allData.length - 1].location;
-        temp.innerHTML = "<i class='fas fa-snowflake'></i>" + allData[allData.length - 1].temp + '&deg;C' + "<i class='fas fa-temperature-low'></i>";
-        weather.innerHTML = "<i class='fas fa-cloud'></i>" + allData[allData.length - 1].weather + '&deg;C';
-        content.innerHTML = "I feel " + allData[allData.length - 1].content;
+        temp.innerHTML = "<i class='fas fa-snowflake'></i>" + allData[allData.length - 1].temp + '&deg;F' + "<i class='fas fa-temperature-low'></i>";
+        weather.innerHTML = "<i class='fas fa-cloud'></i>" + allData[allData.length - 1].weather + '&deg;F';
+        content.innerHTML = "Dear Journal," + allData[allData.length - 1].content;
         entryHolder.classList.add("showCard");
 
         //Load map
         displayMap();
-    }catch(error){
+        }catch(error){
         console.log('error', error);
     }
 }
